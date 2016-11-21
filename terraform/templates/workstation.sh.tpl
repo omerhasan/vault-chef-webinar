@@ -165,7 +165,7 @@ remote_file '/tmp/database.json' do
   mode '0644'
   action :create
   notifies :create, 'ruby_block[write_config]', :immediately
-  not_if { File.exist?('/tmp/database.yml') }
+  not_if { File.exist?('/tmp/database.json') }
 end
 
 ruby_block 'write_config' do
@@ -208,7 +208,7 @@ postgresql:
   password: {{ .Data.password }}
 {{- end -}}
 EOT
-  destination = "/tmp/database.tml"
+  destination = "/tmp/database.yml"
 }
 EOH
 end
@@ -223,6 +223,9 @@ stop on runlevel [06]
 respawn
 
 kill signal INT
+
+env VAULT_ADDR="https://vault.hashicorp.rocks"
+env VAULT_TOKEN="root"
 
 exec /usr/local/bin/consul-template \
   -config=/etc/consul-template.d

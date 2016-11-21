@@ -8,13 +8,16 @@ These configurations use Vault 0.6.2, but the concepts should be largely applica
 
 ## Overview
 
-- Q: What is a secret?
+- **Q: What is a secret?***
+
 Anything which, if acquired by an unauthorized party could cause political, financial, or reputation harm (to an organization).
 
-- Q: How long is a secret a secret?
+- **Q: How long is a secret a secret?**
+
 We frequently rotate things like login credentials, but when is the last time you changed your WIFI password?
 
-- Q: What is the current process for acquiring a database credential for an application in your organization?
+- **Q: What is the current process for acquiring a database credential for an application in your organization?**
+
 For small companies, this might involving SSHing into a server, copy-pasting a command from StackOverflow, and then putting the credentials in a text file. For larger companies, you file a JIRA ticket, wait 6-8 weeks, and have the credential emailed to you.
 
 This webinar explores a hypothetical scenario involving that last process - acquiring a database credential and placing it into a YAML file so our application can communicate with the database.
@@ -115,12 +118,6 @@ Let's take a look at Vault's architecture and design outside of the scope of Che
 (Explain Shamir's secret sharing algorithm)
 
 Vault can run in high-availability mode, but I am only running a single instance for this webinar.
-
-The first thing we need to do is authenticate to the Vault. Normally this is an auto-generated UUID, but I have preconfigured this Vault to use "root" to make this webinar easier.
-
-```sh
-$ vault auth root
-```
 
 There are other authentication mechanisms for Vault, including username-password, GitHub, LDAP, and more.
 
@@ -256,13 +253,13 @@ $ vi cookbooks/ct/recipes/default.rb
 ```
 
 ```sh
-sudo chef-client -z -r 'recipe[ct]'
+$ sudo chef-client -z -r 'recipe[ct]'
 ```
 
 Chef successfully downloaded, unarchived, and installed Consul Template as a system service. We can look at the logs to make sure:
 
 ```sh
-$ cat /var/log/upstart/consul-template.log
+$ sudo tail -f /var/log/upstart/consul-template.log
 ```
 
 Chef and Vault are playing harmoniously playing together through Consul Template.
