@@ -199,7 +199,7 @@ Almost all interactions in Vault take place via the HTTP API. The CLI is actuall
 Here is an example of using the API to generate a PostgreSQL credential:
 
 ```sh
-$ curl -s -H "X-Vault-Token: $(cat ~/.vault-token)" https://vault.hashicorp.rocks/v1/postgresql/creds/readonly | jq .
+$ curl -s -H "X-Vault-Token: $VAULT_TOKEN" https://vault.hashicorp.rocks/v1/postgresql/creds/readonly | jq .
 ```
 
 ```json
